@@ -5,7 +5,7 @@ const ProductCard = ({ title, subtitle, price, image, onPress}) => {
  const navigation = useNavigation();
   return (
     <View style={styles.card}>
-      <Image source={{ uri: image }} style={styles.image} />
+            <Image source={typeof image === "string" ? { uri: image } : image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{subtitle}</Text>
       <Text style={styles.price}>€{price}</Text>
@@ -20,13 +20,14 @@ const ProductCard = ({ title, subtitle, price, image, onPress}) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#f8f8f8",
+    backgroundColor:  "#FFF1E6"
+,
     padding: 15,
     borderRadius: 10,
     marginVertical: 10,
     alignItems: "center",
   },
-  image: { width: 100, height: 100, borderRadius: 50, marginBottom: 10 },
+  image: { width: 140, height: 140, borderRadius: 50, marginBottom: 10 },
   title: { fontSize: 16, fontWeight: "bold" },
   description: { fontSize: 14, color: "#555", textAlign: "center" }
 });
