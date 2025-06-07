@@ -5,7 +5,7 @@ const ProductCard = ({ title, subtitle, price, image, onPress}) => {
  const navigation = useNavigation();
   return (
     <View style={styles.card}>
-            <Image source={typeof image === "string" ? { uri: image } : image} style={styles.image} />
+      <Image source={typeof image === "string" ? { uri: image } : image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{subtitle}</Text>
       <Text style={styles.price}>€{price}</Text>

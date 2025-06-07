@@ -33,16 +33,19 @@ const ProductsDetail = ({ route, cartItems, setCartItems, wishlistItems, setWish
     navigation.navigate("cartscreen");
   };
 
-  const handleAddToWishlist = () => {
-    const existingItem = wishlistItems.find((item) => item.id === id);
-    
-    // Voeg alleen toe als het product nog niet in de wishlist zit
-    if (!existingItem) {
-      setWishlistItems([...wishlistItems, { id, title, price, image }]);
-    } else {
-      alert("Dit product staat al in je wishlist!");
-    }
-  };
+ const handleAddToWishlist = () => {
+  const existingItem = wishlistItems.find((item) => item.id === id);
+
+  if (!existingItem) {
+    setWishlistItems([...wishlistItems, { id, title, price, image }]);
+  } else {
+    alert("Dit product staat al in je wishlist!");
+  }
+
+  navigation.navigate("wishlist"); // altijd navigeren
+};
+
+
 
   return (
     <View style={styles.container}>

@@ -31,7 +31,7 @@ const Products = ({ navigation, wishlistItems, setWishlistItems }) => {
             title: item.product.fieldData.name,
             subtitle: item.product.fieldData.description,
             price: (item.skus[0]?.fieldData.price.value || 0) / 100,
-            image: { uri: item.skus[0]?.fieldData["main-image"]?.url },
+            image: { uri: item.skus[0]?.fieldData["image"]?.url },
             category: categoryNames[item.product.fieldData.category[0]] || "Onbekend",
           }))
         )
@@ -107,12 +107,11 @@ const Products = ({ navigation, wishlistItems, setWishlistItems }) => {
               title={product.title}
               subtitle={product.subtitle}
               price={product.price}
-              image={product.image}
+              img={product.image}
               onPress={() => navigation.navigate("productsdetail", product)}
             />
             <TouchableOpacity
-              style={styles.addToWishlistButton}
-              onPress={() => handleAddToWishlist(product)}
+             
             >
               <Text style={styles.buttonText}>Toevoegen aan wishlist</Text>
             </TouchableOpacity>
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
     marginHorizontal: "2.5%",
   },
   addToWishlistButton: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#0000FF",
     padding: 10,
     borderRadius: 5,
     alignItems: "center",

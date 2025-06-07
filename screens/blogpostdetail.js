@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 
 const BlogPostDetail = ({ route }) => {
-  const { name, image, postbody } = route.params;
+  const { name, thumb, postbody } = route.params;
 
   return (
     <ScrollView style={styles.container}>
-      {image && <Image source={image} style={styles.image} />}
+      {thumb && <Image source={thumb} style={styles.image} />}
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.body}>{postbody}</Text>
     </ScrollView>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   body: {
-    fontSize: 36,
+    fontSize: 26,
     color: "#333",
     lineHeight: 24,
     textAlign: "left",

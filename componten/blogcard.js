@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const BlogCard = ({ title, intro, image, onPress }) => (
+const BlogCard = ({ name, intro, image, onPress }) => (
   <View style={styles.card}>
     {image && <Image source={image} style={styles.image} />}
-    <Text style={styles.name}>{title}</Text>
+    <Text style={styles.title}>{name}</Text>
     <Text style={styles.intro} numberOfLines={3}>{intro}</Text>
 
     <TouchableOpacity onPress={onPress} style={styles.button}>

@@ -15,19 +15,24 @@ const BlogPost = ({ navigation }) => {
     })
       .then((res) => res.json())
       .then((data) =>
-        setBlogs(
+              setBlogs(
           data.items.map((item) => ({
             id: item._id,
             name: item.fieldData.name,
-            postbody: item.fieldData.postbody,
-            image: item.fieldData["main-image"]?.url
+            postbody: item.fieldData["post-body"],
+            mainimage: item.fieldData["main-image"]?.url
               ? { uri: item.fieldData["main-image"].url }
               : null,
+            thumb: item.fieldData["thumbnail-image"]?.url
+              ? { uri: item.fieldData["thumbnail-image"].url }
+              : null,
+            summary: item.fieldData["post-summary"],
           }))
         )
       )
       .catch((err) => console.error("Blog fetch error:", err));
   }, []);
+        
 
   return (
     <ScrollView style={styles.container}>
@@ -36,9 +41,10 @@ const BlogPost = ({ navigation }) => {
       <View style={styles.row}>
         {blogs.map((blog) => (
           <BlogCard
-            key={blog.id}
-            title={blog.title}
-            image={blog.image}
+               key={blog.id}
+            name={blog.name}
+            intro={blog.summary}
+            image={blog.mainimage}
             onPress={() => navigation.navigate("blogpostdetail", blog)}
           />
         ))}
