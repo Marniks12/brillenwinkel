@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   removeButton: {
     backgroundColor: "#FF6347",
     padding: 10,
+    marginLeft: 10,
     borderRadius: 5,
   },
   removeButtonText: { color: "white", fontSize: 16 },

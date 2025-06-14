@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+} from "react-native";
+import { Picker } from "@react-native-picker/picker"; // <-- Zorg dat je dit installeert!
 import BlogCard from "../componten/blogcard";
 
 const BlogPost = ({ navigation }) => {
   const [blogs, setBlogs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOption, setSortOption] = useState("az");
 
   useEffect(() => {
     fetch("https://api.webflow.com/v2/collections/67b368ff73756cc0126256a7/items", {
@@ -15,7 +24,7 @@ const BlogPost = ({ navigation }) => {
     })
       .then((res) => res.json())
       .then((data) =>
-              setBlogs(
+        setBlogs(
           data.items.map((item) => ({
             id: item._id,
             name: item.fieldData.name,
@@ -32,16 +41,43 @@ const BlogPost = ({ navigation }) => {
       )
       .catch((err) => console.error("Blog fetch error:", err));
   }, []);
-        
+
+  // Filter en sorteer
+  const filteredAndSortedBlogs = blogs
+    .filter((blog) =>
+      blog.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOption === "az") return a.name.localeCompare(b.name);
+      if (sortOption === "za") return b.name.localeCompare(a.name);
+      return 0;
+    });
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.heading}>Blog Posts</Text>
 
+      <TextInput
+        placeholder="Zoek op titel..."
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+        style={styles.input}
+      />
+
+      <Text style={styles.label}>Sorteer op titel:</Text>
+      <Picker
+        selectedValue={sortOption}
+        onValueChange={(value) => setSortOption(value)}
+        style={styles.picker}
+      >
+        <Picker.Item label="A-Z" value="az" />
+        <Picker.Item label="Z-A" value="za" />
+      </Picker>
+
       <View style={styles.row}>
-        {blogs.map((blog) => (
+        {filteredAndSortedBlogs.map((blog) => (
           <BlogCard
-               key={blog.id}
+            key={blog.id}
             name={blog.name}
             intro={blog.summary}
             image={blog.mainimage}
@@ -61,6 +97,23 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
     marginTop: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 10,
+  },
+  label: {
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  picker: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    marginBottom: 15,
   },
   row: {
     flexDirection: "row",

@@ -29,9 +29,9 @@ const Products = ({ navigation, wishlistItems, setWishlistItems }) => {
           data.items.map((item) => ({
             id: item.product.id,
             title: item.product.fieldData.name,
-            subtitle: item.product.fieldData.description,
+           subtitle: item.product.fieldData.description,
             price: (item.skus[0]?.fieldData.price.value || 0) / 100,
-            image: { uri: item.skus[0]?.fieldData["image"]?.url },
+            image: { uri: item.skus[0]?.fieldData["main-image"]?.url },
             category: categoryNames[item.product.fieldData.category[0]] || "Onbekend",
           }))
         )
@@ -105,9 +105,10 @@ const Products = ({ navigation, wishlistItems, setWishlistItems }) => {
           <View key={product.id} style={styles.productContainer}>
             <ProductCard
               title={product.title}
-              subtitle={product.subtitle}
+           
               price={product.price}
-              img={product.image}
+             image={product.image}
+         
               onPress={() => navigation.navigate("productsdetail", product)}
             />
             <TouchableOpacity
@@ -123,7 +124,7 @@ const Products = ({ navigation, wishlistItems, setWishlistItems }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 20, backgroundColor: "#E6F0FF" },
+  container: { padding: 20, backgroundColor: "#F8F9FA" },
   heading: {
     fontSize: 24,
     fontWeight: "bold",
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   pickerContainer: {
-    backgroundColor: "#E6F0FF",
+    backgroundColor: "#d6f3ed",
     borderRadius: 10,
     width: 330,
     paddingHorizontal: 24,
@@ -167,8 +168,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
-    color: "#fff",
-    fontSize: 14,
+    
+    backgroundColor: "#F8F9FA",
+    fontSize: 1,
   },
 });
 

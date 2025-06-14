@@ -1,14 +1,20 @@
 import React from "react";
-import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
+import { View, Text, Image, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
+import RenderHtml from "react-native-render-html";
 
 const BlogPostDetail = ({ route }) => {
   const { name, thumb, postbody } = route.params;
+  const { width } = useWindowDimensions();
 
   return (
     <ScrollView style={styles.container}>
       {thumb && <Image source={thumb} style={styles.image} />}
       <Text style={styles.title}>{name}</Text>
-      <Text style={styles.body}>{postbody}</Text>
+      <RenderHtml
+        contentWidth={width}
+        source={{ html: `<div>${postbody}</div>` }}
+        baseStyle={styles.body}
+      />
     </ScrollView>
   );
 };
@@ -31,7 +37,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   body: {
-    fontSize: 26,
+    fontSize: 16,
     color: "#333",
     lineHeight: 24,
     textAlign: "left",

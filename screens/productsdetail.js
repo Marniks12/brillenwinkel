@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet,Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";  
 
 const ProductsDetail = ({ route, cartItems, setCartItems, wishlistItems, setWishlistItems }) => {
@@ -29,7 +29,7 @@ const ProductsDetail = ({ route, cartItems, setCartItems, wishlistItems, setWish
       ]);
     }
 
-    // Correct route name with lowercase 'cartscreen'
+    
     navigation.navigate("cartscreen");
   };
 
@@ -42,7 +42,7 @@ const ProductsDetail = ({ route, cartItems, setCartItems, wishlistItems, setWish
     alert("Dit product staat al in je wishlist!");
   }
 
-  navigation.navigate("wishlist"); // altijd navigeren
+  navigation.navigate("wishlist"); 
 };
 
 
@@ -50,9 +50,14 @@ const ProductsDetail = ({ route, cartItems, setCartItems, wishlistItems, setWish
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
-      <Text style={styles.price}>€{price}</Text>
+      
 
+      <Image
+  source={typeof image === "string" ? { uri: image } : image}
+  style={styles.image}
+/>
+      <Text style={styles.subtitle}>{subtitle}</Text>
+      
       <View style={styles.quantityContainer}>
         <TouchableOpacity style={styles.button} onPress={decreaseQuantity}>
           <Text style={styles.buttonText}>-</Text>
@@ -63,17 +68,16 @@ const ProductsDetail = ({ route, cartItems, setCartItems, wishlistItems, setWish
         </TouchableOpacity>
       </View>
 
-      {/* Display live total price */}
+   
       <Text style={styles.totalPrice}>
         Totaal: €{(price * quantity).toFixed(2)}
       </Text>
 
-      {/* Voeg toe aan winkelmandje */}
       <TouchableOpacity style={styles.addToCartButton} onPress={handleAddToCart}>
         <Text style={styles.buttonText}>Toevoegen aan winkelmandje</Text>
       </TouchableOpacity>
 
-      {/* Voeg toe aan wishlist */}
+      
       <TouchableOpacity style={styles.addToWishlistButton} onPress={handleAddToWishlist}>
         <Text style={styles.buttonText}>Toevoegen aan wenslijst</Text>
       </TouchableOpacity>
@@ -82,6 +86,18 @@ const ProductsDetail = ({ route, cartItems, setCartItems, wishlistItems, setWish
 };
 
 const styles = StyleSheet.create({
+  description: {
+  fontSize: 16,
+  color: "#555",
+  marginVertical: 10,
+},
+image: {
+  width: "100%",
+  height: 200,
+  borderRadius: 10,
+  resizeMode: "contain",
+  marginBottom: 10,
+},
   container: { padding: 20 },
   title: { fontSize: 24, fontWeight: "bold" },
   subtitle: { fontSize: 16 },
@@ -90,8 +106,8 @@ const styles = StyleSheet.create({
   button: { backgroundColor: "#eee", padding: 10, marginHorizontal: 10 },
   buttonText: { fontSize: 18 },
   quantityText: { fontSize: 18 },
-  addToCartButton: { backgroundColor: "#FF7F50", padding: 15, borderRadius: 10, alignItems: "center" },
-  addToWishlistButton: { backgroundColor: "#FFD700", padding: 15, borderRadius: 10, alignItems: "center", marginTop: 10 },
+  addToCartButton: { backgroundColor: "#a2e2d7", padding: 15, borderRadius: 10, alignItems: "center", },
+  addToWishlistButton: { backgroundColor: "#a2e2d7", padding: 15, borderRadius: 10, alignItems: "center", marginTop: 10 },
   totalPrice: {
     fontSize: 18,
     fontWeight: "bold",
